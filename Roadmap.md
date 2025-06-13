@@ -30,12 +30,12 @@ This ambitious project will deliver **100+ complete AI applications** organized 
 
 **Week 1: Chat & Conversation**
 - **Day 1**: AI21 Studio Chat - Jurassic model integration ✅
-- **Day 2**: OpenAI GPT-4 Chat Interface
-- **Day 3**: Claude 3 Conversation Agent  
-- **Day 4**: Local Llama Chat Assistant
-- **Day 5**: Multi-Model Chat Comparison
-- **Day 6**: Voice-Enabled Chat Bot
-- **Day 7**: Streaming Response Chat
+- **Day 2**: Gemini Veo 3 Sketch2Video Generator ✅
+- **Day 3**: OpenAI GPT-4 Chat Interface
+- **Day 4**: Claude 3 Conversation Agent  
+- **Day 5**: Local Llama Chat Assistant
+- **Day 6**: Multi-Model Chat Comparison
+- **Day 7**: Streaming Response Chat Bot
 
 **Week 2: Content Generation**
 - **Day 8**: Blog Post Generator

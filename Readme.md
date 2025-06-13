@@ -32,6 +32,7 @@ Coordinated AI teams working together on complex tasks:
 
 ### 🎨 [Multimodal Apps](./multimodal-apps/)
 Applications combining text, images, audio, and video:
+- **[Gemini Sketch-to-Video](./multimodal-apps/gemini-veo-sketch2video/)** - Turn sketches into animated videos with Gemini and Veo
 - **[Gemini Video Analyzer](./multimodal-apps/gemini-video-analyzer/)** - Video content analysis and insights
 - **Image Story Generator** - Create narratives from visual content
 - **Audio Content Creator** - Podcast and audio content generation
