@@ -30,7 +30,7 @@ This ambitious project will deliver **100+ complete AI applications** organized 
 
 **Week 1: Chat & Conversation**
 - **Day 1**: AI21 Studio Chat - Jurassic model integration ✅
-- **Day 2**: Gemini Veo 3 Sketch2Video Generator ✅
+- **Day 2**: Voice-Enabled Chatbot
 - **Day 3**: OpenAI GPT-4 Chat Interface
 - **Day 4**: Claude 3 Conversation Agent  
 - **Day 5**: Local Llama Chat Assistant
@@ -173,7 +173,8 @@ This ambitious project will deliver **100+ complete AI applications** organized 
 *Next-generation applications combining text, images, audio, and video*
 
 **Week 17: Visual Intelligence**
-- **Day 101**: Gemini Video Analyzer ✅ *(Preview Available)*
+- **Day 1**: Gemini Video Analyzer ✅ *(Preview Available)*
+- **Day 2**: Gemini Veo 3 Sketch2Video Generator ✅ *(Preview Available)*
 - **Day 102**: Image Story Generator
 - **Day 103**: Visual Content Creator
 - **Day 104**: Brand Asset Analyzer
