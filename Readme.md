@@ -18,7 +18,9 @@ This repository contains **complete AI applications** organized into 4 main cate
 
 ### 🎯 [Starter Agents](./starter-agents/)
 Simple, single-purpose AI agents perfect for learning and quick implementations:
-- **[AI21 Studio Chat](./starter-agents/ai21-studio-chat/)** - Jurassic model integration
+- <img src="https://www.ai21.com/wp-content/uploads/2024/11/ai21-logo.svg" alt="AI21 logo" width="40" height="10"> **[AI21 Studio Chat](./starter-agents/ai21-studio-chat/)** - Jurassic model integration
+- <img src="https://cdn.simpleicons.org/elevenlabs" alt="ElevenLabs logo" width="20" height="20"> **[Voice-Enabled Chatbot](./starter-agents/elevenlabs-voice-assistant/)** - Voice-enabled chatbot using ElevenLabs
+- <img src="https://zorgle.co.uk/wp-content/uploads/2024/11/Claude-ai-logo.png" alt="Anthropic Claude logo" width="20" height="20"> **[Claude 4 Conversation Agent](./starter-agents/claude-3-conversation-agent/)** - Conversation agent using Claude models
 
 ### 🧠 [Advanced Agents](./advanced-agents/)
 Sophisticated AI agents with complex reasoning and multi-step workflows:
@@ -32,10 +34,8 @@ Coordinated AI teams working together on complex tasks:
 
 ### 🎨 [Multimodal Apps](./multimodal-apps/)
 Applications combining text, images, audio, and video:
-- **[Gemini Sketch-to-Video](./multimodal-apps/gemini-veo-sketch2video/)** - Turn sketches into animated videos with Gemini and Veo
-- **[Gemini Video Analyzer](./multimodal-apps/gemini-video-analyzer/)** - Video content analysis and insights
-- **Image Story Generator** - Create narratives from visual content
-- **Audio Content Creator** - Podcast and audio content generation
+- <img src="https://cdn.simpleicons.org/googlegemini" alt="Gemini logo" width="20" height="20"> **[Gemini Video Analyzer](./multimodal-apps/gemini-video-analyzer/)** - Video content analysis and insights
+- <img src="https://cdn.simpleicons.org/googlegemini" alt="Gemini logo" width="20" height="20"> **[Gemini Sketch-to-Video](./multimodal-apps/gemini-veo-sketch2video/)** - Turn sketches into animated videos with Gemini and Veo
 
 # 🗓️ [Development Roadmap](./Roadmap.md)
 
@@ -60,12 +60,14 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🙏 Acknowledgments
 
-- OpenAI for GPT models and APIs
-- Google for Gemini AI capabilities
-- Meta for Llama model family
-- Motia for AI Agents and Backend Automation
-- LangChain for agent frameworks
-- CrewAI for multi-agent coordination
+- <img src="https://cdn.simpleicons.org/openai" alt="OpenAI logo" width="20" height="20"> OpenAI for GPT models and APIs
+- <img src="https://cdn.simpleicons.org/anthropic" alt="Anthropic Claude logo" width="20" height="20"> Anthropic for Claude models and APIs
+- <img src="https://cdn.simpleicons.org/googlegemini" alt="Gemini logo" width="20" height="20"> Google for Gemini AI capabilities
+- <img src="https://cdn.simpleicons.org/meta" alt="Meta logo" width="20" height="20"> Meta for Llama model family
+- <img src="https://camo.githubusercontent.com/c4cb66271fe326cd8e9449a6f5da07e581425a3be88fcfb6c3722a7dea73df88/68747470733a2f2f6d6f7469612e6465762f69636f6e2e706e67" alt="Motia logo" width="20" height="20"> Motia for AI Agents and Backend Automation
+- <img src="https://cdn.simpleicons.org/langchain" alt="LangChain logo" width="20" height="20"> LangChain for agent frameworks
+- <img src="https://cdn.prod.website-files.com/66cf2bfc3ed15b02da0ca770/66d07240057721394308addd_Logo%20(1).svg" alt="CrewAI logo" width="20" height="20"> CrewAI for multi-agent orchestration
+- <img src="https://avatars.githubusercontent.com/u/104874993?s=48&v=4" alt="Agno logo" width="20" height="20"> Agno for multi-agent systems
 - All the amazing open source AI community
 
 ---
