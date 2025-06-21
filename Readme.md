@@ -21,6 +21,9 @@ Simple, single-purpose AI agents perfect for learning and quick implementations:
 - <img src="https://www.ai21.com/wp-content/uploads/2024/11/ai21-logo.svg" alt="AI21 logo" width="40" height="10"> **[AI21 Studio Chat](./starter-agents/ai21-studio-chat/)** - Jurassic model integration
 - <img src="https://cdn.simpleicons.org/elevenlabs" alt="ElevenLabs logo" width="20" height="20"> **[Voice-Enabled Chatbot](./starter-agents/elevenlabs-voice-assistant/)** - Voice-enabled chatbot using ElevenLabs
 - <img src="https://zorgle.co.uk/wp-content/uploads/2024/11/Claude-ai-logo.png" alt="Anthropic Claude logo" width="20" height="20"> **[Claude 4 Conversation Agent](./starter-agents/claude-3-conversation-agent/)** - Conversation agent using Claude models
+- <img src="https://cdn.simpleicons.org/googlegemini" alt="Gemini logo" width="20" height="20"> **[Google PaLM Chat](./starter-agents/google-palm-chat/)** - Conversation agent using Google PaLM models
+- <img src="https://cdn.simpleicons.org/meta" alt="Meta logo" width="20" height="20"> **[Local Llama Chat](./starter-agents/local-llama-chat/)** - Conversation agent using Local Llama models
+- <img src="https://cdn.simpleicons.org/openai" alt="OpenAI logo" width="20" height="20"> **[OpenAI Chat Assistant](./starter-agents/openai-chat-assistant/)** - Chat assistant using OpenAI API
 
 ### 🧠 [Advanced Agents](./advanced-agents/)
 Sophisticated AI agents with complex reasoning and multi-step workflows:
