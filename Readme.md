@@ -24,6 +24,7 @@ Simple, single-purpose AI agents perfect for learning and quick implementations:
 - <img src="https://cdn.simpleicons.org/googlegemini" alt="Gemini logo" width="20" height="20"> **[Google PaLM Chat](./starter-agents/google-palm-chat/)** - Conversation agent using Google PaLM models
 - <img src="https://cdn.simpleicons.org/meta" alt="Meta logo" width="20" height="20"> **[Local Llama Chat](./starter-agents/local-llama-chat/)** - Conversation agent using Local Llama models
 - <img src="https://cdn.simpleicons.org/openai" alt="OpenAI logo" width="20" height="20"> **[OpenAI Chat Assistant](./starter-agents/openai-chat-assistant/)** - Chat assistant using OpenAI API
+- <img src="https://zorgle.co.uk/wp-content/uploads/2024/11/Claude-ai-logo.png" alt="Anthropic Claude logo" width="20" height="20"> **[Claude Code Reviewer](./starter-agents/claude-code-reviewer/)** - Code reviewer using Claude Sonnet 4
 
 ### 🧠 [Advanced Agents](./advanced-agents/)
 Sophisticated AI agents with complex reasoning and multi-step workflows:
