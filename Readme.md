@@ -34,6 +34,8 @@ Coordinated AI teams working together on complex tasks:
 
 
 ### 📚 [RAG Applications](./rag-applications/)
+- <img src="https://cdn.simpleicons.org/googlegemini" alt="Gemini logo" width="20" height="20"> **[Contextual Video RAG](./rag-applications/contextual-video-rag/)** - Advanced video RAG with contextual compression and semantic retrieval
+- <img src="https://cdn.simpleicons.org/googlegemini" alt="Gemini logo" width="20" height="20"> **[Corrective Video RAG](./rag-applications/corrective-video-rag/)** - Video analysis with three-tier evaluation and corrective strategies
 
 
 ### 🎨 [Multimodal Apps](./multimodal-apps/)
