@@ -28,15 +28,16 @@ Simple, single-purpose AI agents perfect for learning and quick implementations:
 
 ### 🧠 [Advanced Agents](./advanced-agents/)
 Sophisticated AI agents with complex reasoning and multi-step workflows:
+- <img src="https://cdn.simpleicons.org/googlegemini" alt="Gemini logo" width="20" height="20"> **[Brand Video Monitor](./advanced-agents/brand-video-monitor/)** - Brand video monitoring and analysis
 
 ### 👥 [Multi-Agent Teams](./multi-agent-teams/)
 Coordinated AI teams working together on complex tasks:
-
+- <img src="https://cdn.simpleicons.org/googlegemini" alt="Gemini logo" width="20" height="20"> **[Content Creation Team](./multi-agent-teams/content-creation-team/)** - Content creation team with specialized agents
 
 ### 📚 [RAG Applications](./rag-applications/)
+RAG applications with knowledge bases:
 - <img src="https://cdn.simpleicons.org/googlegemini" alt="Gemini logo" width="20" height="20"> **[Contextual Video RAG](./rag-applications/contextual-video-rag/)** - Advanced video RAG with contextual compression and semantic retrieval
 - <img src="https://cdn.simpleicons.org/googlegemini" alt="Gemini logo" width="20" height="20"> **[Corrective Video RAG](./rag-applications/corrective-video-rag/)** - Video analysis with three-tier evaluation and corrective strategies
-
 
 ### 🎨 [Multimodal Apps](./multimodal-apps/)
 Applications combining text, images, audio, and video:
