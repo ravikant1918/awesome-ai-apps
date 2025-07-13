@@ -6,7 +6,7 @@ A curated collection of **practical AI agents** and generative AI applications b
 
 ## 📊 Collection Overview
 
-This repository contains **complete AI applications** organized into 4 main categories:
+This repository contains **complete AI applications** organized into 5 main categories:
 
 - **🎯 [Starter Agents](./starter-agents/)**: Simple, single-purpose AI agents
 - **🧠 [Advanced Agents](./advanced-agents/)**: Complex AI agents with sophisticated workflows  
@@ -25,10 +25,12 @@ Simple, single-purpose AI agents perfect for learning and quick implementations:
 - <img src="https://cdn.simpleicons.org/meta" alt="Meta logo" width="20" height="20"> **[Local Llama Chat](./starter-agents/local-llama-chat/)** - Conversation agent using Local Llama models
 - <img src="https://cdn.simpleicons.org/openai" alt="OpenAI logo" width="20" height="20"> **[OpenAI Chat Assistant](./starter-agents/openai-chat-assistant/)** - Chat assistant using OpenAI API
 - <img src="https://zorgle.co.uk/wp-content/uploads/2024/11/Claude-ai-logo.png" alt="Anthropic Claude logo" width="20" height="20"> **[Claude Code Reviewer](./starter-agents/claude-code-reviewer/)** - Code reviewer using Claude Sonnet 4
+- <img src="https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/dark/together-color.png" alt="Together AI logo" width="20" height="20"> **[Streaming Response Chat Bot](./starter-agents/together-ai-chat/)** - Real-time chatbot with Together AI streaming responses
 
 ### 🧠 [Advanced Agents](./advanced-agents/)
 Sophisticated AI agents with complex reasoning and multi-step workflows:
 - <img src="https://cdn.simpleicons.org/googlegemini" alt="Gemini logo" width="20" height="20"> **[Brand Video Monitor](./advanced-agents/brand-video-monitor/)** - Brand video monitoring and analysis
+- <img src="https://cdn.simpleicons.org/googlegemini" alt="Gemini logo" width="20" height="20"> **[Blog Video Writer](./advanced-agents/blog-video-writer/)** - Generate blog posts from videos with multi-agent pipeline
 
 ### 👥 [Multi-Agent Teams](./multi-agent-teams/)
 Coordinated AI teams working together on complex tasks:
@@ -37,12 +39,15 @@ Coordinated AI teams working together on complex tasks:
 ### 📚 [RAG Applications](./rag-applications/)
 RAG applications with knowledge bases:
 - <img src="https://cdn.simpleicons.org/googlegemini" alt="Gemini logo" width="20" height="20"> **[Contextual Video RAG](./rag-applications/contextual-video-rag/)** - Advanced video RAG with contextual compression and semantic retrieval
+- <img src="https://cdn.simpleicons.org/googlegemini" alt="Gemini logo" width="20" height="20"> **[Content Management System](./rag-applications/content-management-system/)** - Intelligent RAG-powered content management
+- <img src="https://cdn.simpleicons.org/googlegemini" alt="Gemini logo" width="20" height="20"> **[Competitive Intelligence Platform](./rag-applications/competitive-intelligence-platform/)** - Market & competitor insights with RAG
 - <img src="https://cdn.simpleicons.org/googlegemini" alt="Gemini logo" width="20" height="20"> **[Corrective Video RAG](./rag-applications/corrective-video-rag/)** - Video analysis with three-tier evaluation and corrective strategies
 
 ### 🎨 [Multimodal Apps](./multimodal-apps/)
 Applications combining text, images, audio, and video:
 - <img src="https://cdn.simpleicons.org/googlegemini" alt="Gemini logo" width="20" height="20"> **[Gemini Video Analyzer](./multimodal-apps/gemini-video-analyzer/)** - Video content analysis and insights
 - <img src="https://cdn.simpleicons.org/googlegemini" alt="Gemini logo" width="20" height="20"> **[Gemini Sketch-to-Video](./multimodal-apps/gemini-veo-sketch2video/)** - Turn sketches into animated videos with Gemini and Veo
+- <img src="https://cdn.simpleicons.org/googlegemini" alt="Gemini logo" width="20" height="20"> **[Multi-Modal Chatbot](./multimodal-apps/multi-modal-chatbot/)** - Chatbot that understands text, images, and video
 
 # 🗓️ [Development Roadmap](./Roadmap.md)
 
