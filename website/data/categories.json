@@ -1,0 +1,253 @@
+{
+  "starter-agents": {
+    "name": "Starter Agents",
+    "count": 8,
+    "apps": [
+      {
+        "name": "AI21 Studio Chat",
+        "path": "./starter-agents/ai21-studio-chat/",
+        "description": "Jurassic model integration",
+        "category": "starter-agents",
+        "category_name": "Starter Agents",
+        "logo_url": "https://www.ai21.com/wp-content/uploads/2024/11/ai21-logo.svg",
+        "tech_stack": [
+          "AI21"
+        ],
+        "github_url": "https://github.com/rohitg00/awesome-ai-apps/tree/main./starter-agents/ai21-studio-chat/"
+      },
+      {
+        "name": "Voice-Enabled Chatbot",
+        "path": "./starter-agents/elevenlabs-voice-assistant/",
+        "description": "Voice",
+        "category": "starter-agents",
+        "category_name": "Starter Agents",
+        "logo_url": "https://www.ai21.com/wp-content/uploads/2024/11/ai21-logo.svg",
+        "tech_stack": [
+          "ElevenLabs",
+          "AI21"
+        ],
+        "github_url": "https://github.com/rohitg00/awesome-ai-apps/tree/main./starter-agents/elevenlabs-voice-assistant/"
+      },
+      {
+        "name": "Claude 4 Conversation Agent",
+        "path": "./starter-agents/claude-3-conversation-agent/",
+        "description": "Conversation agent using Claude models",
+        "category": "starter-agents",
+        "category_name": "Starter Agents",
+        "logo_url": "https://www.ai21.com/wp-content/uploads/2024/11/ai21-logo.svg",
+        "tech_stack": [
+          "Claude",
+          "AI21"
+        ],
+        "github_url": "https://github.com/rohitg00/awesome-ai-apps/tree/main./starter-agents/claude-3-conversation-agent/"
+      },
+      {
+        "name": "Google PaLM Chat",
+        "path": "./starter-agents/google-palm-chat/",
+        "description": "Conversation agent using Google PaLM models",
+        "category": "starter-agents",
+        "category_name": "Starter Agents",
+        "logo_url": "https://www.ai21.com/wp-content/uploads/2024/11/ai21-logo.svg",
+        "tech_stack": [
+          "AI21"
+        ],
+        "github_url": "https://github.com/rohitg00/awesome-ai-apps/tree/main./starter-agents/google-palm-chat/"
+      },
+      {
+        "name": "Local Llama Chat",
+        "path": "./starter-agents/local-llama-chat/",
+        "description": "Conversation agent using Local Llama models",
+        "category": "starter-agents",
+        "category_name": "Starter Agents",
+        "logo_url": "https://www.ai21.com/wp-content/uploads/2024/11/ai21-logo.svg",
+        "tech_stack": [
+          "Meta",
+          "AI21"
+        ],
+        "github_url": "https://github.com/rohitg00/awesome-ai-apps/tree/main./starter-agents/local-llama-chat/"
+      },
+      {
+        "name": "OpenAI Chat Assistant",
+        "path": "./starter-agents/openai-chat-assistant/",
+        "description": "Chat assistant using OpenAI API",
+        "category": "starter-agents",
+        "category_name": "Starter Agents",
+        "logo_url": "https://www.ai21.com/wp-content/uploads/2024/11/ai21-logo.svg",
+        "tech_stack": [
+          "OpenAI",
+          "AI21"
+        ],
+        "github_url": "https://github.com/rohitg00/awesome-ai-apps/tree/main./starter-agents/openai-chat-assistant/"
+      },
+      {
+        "name": "Claude Code Reviewer",
+        "path": "./starter-agents/claude-code-reviewer/",
+        "description": "Code reviewer using Claude Sonnet 4",
+        "category": "starter-agents",
+        "category_name": "Starter Agents",
+        "logo_url": "https://www.ai21.com/wp-content/uploads/2024/11/ai21-logo.svg",
+        "tech_stack": [
+          "Claude",
+          "AI21"
+        ],
+        "github_url": "https://github.com/rohitg00/awesome-ai-apps/tree/main./starter-agents/claude-code-reviewer/"
+      },
+      {
+        "name": "Streaming Response Chat Bot",
+        "path": "./starter-agents/together-ai-chat/",
+        "description": "Real",
+        "category": "starter-agents",
+        "category_name": "Starter Agents",
+        "logo_url": "https://www.ai21.com/wp-content/uploads/2024/11/ai21-logo.svg",
+        "tech_stack": [
+          "AI21"
+        ],
+        "github_url": "https://github.com/rohitg00/awesome-ai-apps/tree/main./starter-agents/together-ai-chat/"
+      }
+    ]
+  },
+  "advanced-agents": {
+    "name": "Advanced Agents",
+    "count": 2,
+    "apps": [
+      {
+        "name": "Brand Video Monitor",
+        "path": "./advanced-agents/brand-video-monitor/",
+        "description": "Brand video monitoring and analysis",
+        "category": "advanced-agents",
+        "category_name": "Advanced Agents",
+        "logo_url": "https://cdn.simpleicons.org/googlegemini",
+        "tech_stack": [
+          "Gemini"
+        ],
+        "github_url": "https://github.com/rohitg00/awesome-ai-apps/tree/main./advanced-agents/brand-video-monitor/"
+      },
+      {
+        "name": "Blog Video Writer",
+        "path": "./advanced-agents/blog-video-writer/",
+        "description": "Generate blog posts from videos with multi",
+        "category": "advanced-agents",
+        "category_name": "Advanced Agents",
+        "logo_url": "https://cdn.simpleicons.org/googlegemini",
+        "tech_stack": [
+          "Gemini"
+        ],
+        "github_url": "https://github.com/rohitg00/awesome-ai-apps/tree/main./advanced-agents/blog-video-writer/"
+      }
+    ]
+  },
+  "multi-agent-teams": {
+    "name": "Multi-Agent Teams",
+    "count": 1,
+    "apps": [
+      {
+        "name": "Content Creation Team",
+        "path": "./multi-agent-teams/content-creation-team/",
+        "description": "Content creation team with specialized agents",
+        "category": "multi-agent-teams",
+        "category_name": "Multi-Agent Teams",
+        "logo_url": "https://cdn.simpleicons.org/googlegemini",
+        "tech_stack": [
+          "Gemini"
+        ],
+        "github_url": "https://github.com/rohitg00/awesome-ai-apps/tree/main./multi-agent-teams/content-creation-team/"
+      }
+    ]
+  },
+  "rag-applications": {
+    "name": "RAG Applications",
+    "count": 4,
+    "apps": [
+      {
+        "name": "Contextual Video RAG",
+        "path": "./rag-applications/contextual-video-rag/",
+        "description": "Advanced video RAG with contextual compression and semantic retrieval",
+        "category": "rag-applications",
+        "category_name": "RAG Applications",
+        "logo_url": "https://cdn.simpleicons.org/googlegemini",
+        "tech_stack": [
+          "Gemini"
+        ],
+        "github_url": "https://github.com/rohitg00/awesome-ai-apps/tree/main./rag-applications/contextual-video-rag/"
+      },
+      {
+        "name": "Content Management System",
+        "path": "./rag-applications/content-management-system/",
+        "description": "Intelligent RAG",
+        "category": "rag-applications",
+        "category_name": "RAG Applications",
+        "logo_url": "https://cdn.simpleicons.org/googlegemini",
+        "tech_stack": [
+          "Gemini"
+        ],
+        "github_url": "https://github.com/rohitg00/awesome-ai-apps/tree/main./rag-applications/content-management-system/"
+      },
+      {
+        "name": "Competitive Intelligence Platform",
+        "path": "./rag-applications/competitive-intelligence-platform/",
+        "description": "Market & competitor insights with RAG",
+        "category": "rag-applications",
+        "category_name": "RAG Applications",
+        "logo_url": "https://cdn.simpleicons.org/googlegemini",
+        "tech_stack": [
+          "Gemini"
+        ],
+        "github_url": "https://github.com/rohitg00/awesome-ai-apps/tree/main./rag-applications/competitive-intelligence-platform/"
+      },
+      {
+        "name": "Corrective Video RAG",
+        "path": "./rag-applications/corrective-video-rag/",
+        "description": "Video analysis with three",
+        "category": "rag-applications",
+        "category_name": "RAG Applications",
+        "logo_url": "https://cdn.simpleicons.org/googlegemini",
+        "tech_stack": [
+          "Gemini"
+        ],
+        "github_url": "https://github.com/rohitg00/awesome-ai-apps/tree/main./rag-applications/corrective-video-rag/"
+      }
+    ]
+  },
+  "multimodal-apps": {
+    "name": "Multimodal Apps",
+    "count": 3,
+    "apps": [
+      {
+        "name": "Gemini Video Analyzer",
+        "path": "./multimodal-apps/gemini-video-analyzer/",
+        "description": "Video content analysis and insights",
+        "category": "multimodal-apps",
+        "category_name": "Multimodal Apps",
+        "logo_url": "https://cdn.simpleicons.org/googlegemini",
+        "tech_stack": [
+          "Gemini"
+        ],
+        "github_url": "https://github.com/rohitg00/awesome-ai-apps/tree/main./multimodal-apps/gemini-video-analyzer/"
+      },
+      {
+        "name": "Gemini Sketch-to-Video",
+        "path": "./multimodal-apps/gemini-veo-sketch2video/",
+        "description": "Turn sketches into animated videos with Gemini and Veo",
+        "category": "multimodal-apps",
+        "category_name": "Multimodal Apps",
+        "logo_url": "https://cdn.simpleicons.org/googlegemini",
+        "tech_stack": [
+          "Gemini"
+        ],
+        "github_url": "https://github.com/rohitg00/awesome-ai-apps/tree/main./multimodal-apps/gemini-veo-sketch2video/"
+      },
+      {
+        "name": "Multi-Modal Chatbot",
+        "path": "./multimodal-apps/multi-modal-chatbot/",
+        "description": "Chatbot that understands text, images, and video",
+        "category": "multimodal-apps",
+        "category_name": "Multimodal Apps",
+        "logo_url": "https://cdn.simpleicons.org/googlegemini",
+        "tech_stack": [
+          "Gemini"
+        ],
+        "github_url": "https://github.com/rohitg00/awesome-ai-apps/tree/main./multimodal-apps/multi-modal-chatbot/"
+      }
+    ]
+  }
+}

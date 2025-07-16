@@ -1,0 +1,29 @@
+{{ define "main" }}
+<div class="debug-container">
+    <h1>Debug Page Structure</h1>
+    
+    <h2>All RegularPages ({{ len .Site.RegularPages }})</h2>
+    <ul>
+    {{ range .Site.RegularPages }}
+        <li>
+            <strong>{{ .Title }}</strong> 
+            - Section: "{{ .Section }}"
+            - Type: "{{ .Type }}"
+            - File: "{{ .File.LogicalName }}"
+            - URL: "{{ .RelPermalink }}"
+        </li>
+    {{ end }}
+    </ul>
+    
+    <h2>Apps Section Pages</h2>
+    <ul>
+    {{ range where .Site.RegularPages "Section" "apps" }}
+        <li>
+            <strong>{{ .Title }}</strong> 
+            - Category: "{{ .Params.category }}"
+            - File: "{{ .File.LogicalName }}"
+        </li>
+    {{ end }}
+    </ul>
+</div>
+{{ end }}

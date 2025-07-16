@@ -1,0 +1,405 @@
+{{ define "main" }}
+<div class="homepage-container">
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Awesome AI Apps</h1>
+            <p>A curated collection of practical AI agents and generative AI applications built with diverse tech stacks, demonstrating real-world implementations using OpenAI, Gemini, local models, and various AI frameworks.</p>
+            <div class="hero-buttons">
+                <a href="/apps/" class="btn btn-primary">Browse Apps</a>
+                <a href="https://github.com/rohitg00/awesome-ai-apps" class="btn btn-secondary" target="_blank">
+                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+                    </svg>
+                    GitHub
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>{{ len (where .Site.RegularPages "Section" "apps") }}</h3>
+                <p>AI Applications</p>
+            </div>
+            <div class="stat-card">
+                <h3>5</h3>
+                <p>Categories</p>
+            </div>
+            <div class="stat-card">
+                <h3>10+</h3>
+                <p>Tech Stacks</p>
+            </div>
+            <div class="stat-card">
+                <h3>Open Source</h3>
+                <p>100% Free</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Categories Section -->
+    <section class="categories">
+        <h2>Browse by Category</h2>
+        <div class="categories-grid">
+            {{ $categoryOrder := slice "starter-agents" "advanced-agents" "multi-agent-teams" "rag-applications" "multimodal-apps" }}
+            {{ $categoryNames := dict "starter-agents" "Starter Agents" "advanced-agents" "Advanced Agents" "multi-agent-teams" "Multi-Agent Teams" "rag-applications" "RAG Applications" "multimodal-apps" "Multimodal Apps" }}
+            {{ $categoryDescriptions := dict "starter-agents" "Simple, single-purpose AI agents perfect for learning" "advanced-agents" "Complex AI agents with sophisticated workflows" "multi-agent-teams" "Collaborative AI systems with specialized agents" "rag-applications" "Retrieval-Augmented Generation with knowledge bases" "multimodal-apps" "Applications combining text, images, audio, and video" }}
+            {{ $categoryIcons := dict "starter-agents" "🎯" "advanced-agents" "🧠" "multi-agent-teams" "👥" "rag-applications" "📚" "multimodal-apps" "🎨" }}
+            
+            {{ range $categoryOrder }}
+                {{ $category := . }}
+                {{ $categoryName := index $categoryNames $category }}
+                {{ $categoryDescription := index $categoryDescriptions $category }}
+                {{ $categoryIcon := index $categoryIcons $category }}
+                {{ $apps := where $.Site.RegularPages "Params.category" $category }}
+                
+                <div class="category-card">
+                    <div class="category-icon">{{ $categoryIcon }}</div>
+                    <h3>{{ $categoryName }}</h3>
+                    <p>{{ $categoryDescription }}</p>
+                    <div class="category-stats">
+                        <span class="app-count">{{ len $apps }} apps</span>
+                    </div>
+                    <a href="/apps/?category={{ $category }}" class="category-link">Explore →</a>
+                </div>
+            {{ end }}
+        </div>
+    </section>
+    
+    <!-- Featured Apps Section -->
+    <section class="featured-apps">
+        <h2>Featured Applications</h2>
+        <div class="featured-grid">
+            {{ range first 6 (where .Site.RegularPages "Section" "apps") }}
+                {{ if ne .File.LogicalName "_index.md" }}
+                <div class="featured-card">
+                    <div class="featured-header">
+                        {{ if .Params.logoUrl }}
+                            <img src="{{ .Params.logoUrl }}" alt="{{ .Title }}" class="featured-logo">
+                        {{ end }}
+                        <div class="featured-title">
+                            <h4>{{ .Title }}</h4>
+                            <span class="featured-category">{{ .Params.categoryName }}</span>
+                        </div>
+                    </div>
+                    <p class="featured-description">{{ .Params.description }}</p>
+                    {{ if .Params.techStack }}
+                        <div class="featured-tech">
+                            {{ range first 3 .Params.techStack }}
+                                <span class="tech-tag">{{ . }}</span>
+                            {{ end }}
+                        </div>
+                    {{ end }}
+                    <div class="featured-actions">
+                        <a href="{{ .Params.githubUrl }}" class="btn btn-small" target="_blank">Code</a>
+                        <a href="{{ .Permalink }}" class="btn btn-small btn-secondary">Details</a>
+                    </div>
+                </div>
+                {{ end }}
+            {{ end }}
+        </div>
+        <div class="view-all">
+            <a href="/apps/" class="btn btn-primary">View All Applications</a>
+        </div>
+    </section>
+</div>
+
+<style>
+.homepage-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Hero Section */
+.hero {
+    text-align: center;
+    padding: 60px 0;
+    background: var(--entry);
+    border-radius: 12px;
+    margin-bottom: 60px;
+}
+
+.hero-content h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    color: var(--primary);
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    color: var(--secondary);
+    max-width: 600px;
+    margin: 0 auto 30px;
+    line-height: 1.6;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Stats Section */
+.stats {
+    margin-bottom: 60px;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.stat-card {
+    background: var(--entry);
+    padding: 30px;
+    border-radius: 8px;
+    text-align: center;
+    border: 1px solid var(--border);
+}
+
+.stat-card h3 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: var(--primary);
+}
+
+.stat-card p {
+    color: var(--secondary);
+    font-size: 1.1rem;
+}
+
+/* Categories Section */
+.categories {
+    margin-bottom: 60px;
+}
+
+.categories h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    color: var(--primary);
+}
+
+.categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.category-card {
+    background: var(--entry);
+    padding: 30px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.category-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+.category-icon {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+.category-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: var(--primary);
+}
+
+.category-card p {
+    color: var(--secondary);
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.category-stats {
+    margin-bottom: 20px;
+}
+
+.app-count {
+    background: var(--primary);
+    color: var(--theme);
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.category-link {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.category-link:hover {
+    opacity: 0.8;
+}
+
+/* Featured Apps Section */
+.featured-apps {
+    margin-bottom: 60px;
+}
+
+.featured-apps h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    color: var(--primary);
+}
+
+.featured-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.featured-card {
+    background: var(--entry);
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    transition: all 0.3s ease;
+}
+
+.featured-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+}
+
+.featured-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.featured-logo {
+    width: 32px;
+    height: 32px;
+    margin-right: 12px;
+    border-radius: 4px;
+}
+
+.featured-title h4 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: var(--primary);
+}
+
+.featured-category {
+    font-size: 0.9rem;
+    color: var(--secondary);
+    opacity: 0.8;
+}
+
+.featured-description {
+    color: var(--secondary);
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.featured-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 15px;
+}
+
+.tech-tag {
+    background: var(--code-bg);
+    color: var(--primary);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    border: 1px solid var(--border);
+}
+
+.featured-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.view-all {
+    text-align: center;
+}
+
+/* Button Styles */
+.btn {
+    padding: 12px 24px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    border: none;
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: var(--theme);
+}
+
+.btn-primary:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--primary);
+    border: 1px solid var(--border);
+}
+
+.btn-secondary:hover {
+    background: var(--primary);
+    color: var(--theme);
+}
+
+.btn-small {
+    padding: 6px 12px;
+    font-size: 0.9rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+    
+    .hero-content p {
+        font-size: 1rem;
+    }
+    
+    .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .categories-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .featured-grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+{{ end }}
