@@ -1,5 +1,12 @@
 {{ define "main" }}
 <div class="homepage-container">
+    <!-- Banner Section -->
+    <section class="banner-section">
+        <div class="banner-container">
+            <img src="/images/banner.gif" alt="Awesome AI Apps Banner" class="banner-image">
+        </div>
+    </section>
+
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
@@ -17,7 +24,7 @@
             </div>
         </div>
     </section>
-    
+
     <!-- Stats Section -->
     <section class="stats">
         <div class="stats-grid">
@@ -45,7 +52,7 @@
             </div>
         </div>
     </section>
-    
+
     <!-- Categories Section -->
     <section class="categories">
         <h2>Browse by Category</h2>
@@ -54,14 +61,14 @@
             {{ $categoryNames := dict "starter-agents" "Starter Agents" "advanced-agents" "Advanced Agents" "multi-agent-teams" "Multi-Agent Teams" "rag-applications" "RAG Applications" "multimodal-apps" "Multimodal Apps" }}
             {{ $categoryDescriptions := dict "starter-agents" "Simple, single-purpose AI agents perfect for learning" "advanced-agents" "Complex AI agents with sophisticated workflows" "multi-agent-teams" "Collaborative AI systems with specialized agents" "rag-applications" "Retrieval-Augmented Generation with knowledge bases" "multimodal-apps" "Applications combining text, images, audio, and video" }}
             {{ $categoryIcons := dict "starter-agents" "🎯" "advanced-agents" "🧠" "multi-agent-teams" "👥" "rag-applications" "📚" "multimodal-apps" "🎨" }}
-            
+
             {{ range $categoryOrder }}
                 {{ $category := . }}
                 {{ $categoryName := index $categoryNames $category }}
                 {{ $categoryDescription := index $categoryDescriptions $category }}
                 {{ $categoryIcon := index $categoryIcons $category }}
                 {{ $categoryApps := where $.Site.RegularPages "Params.category" $category }}
-                
+
                 <div class="category-card">
                     <div class="category-header">
                         <div class="category-icon">{{ $categoryIcon }}</div>
@@ -76,7 +83,7 @@
             {{ end }}
         </div>
     </section>
-    
+
     <!-- Featured Apps Section -->
     <section class="featured-apps">
         <h2>Featured Applications</h2>
@@ -121,6 +128,38 @@
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
+}
+
+/* Banner Section */
+.banner-section {
+    margin-bottom: 60px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+.banner-container {
+    position: relative;
+    width: 100%;
+    height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.banner-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+    transition: transform 0.3s ease;
+}
+
+.banner-image:hover {
+    transform: scale(1.05);
 }
 
 /* Hero Section */
@@ -427,24 +466,28 @@
     .hero-content h1 {
         font-size: 2.5rem;
     }
-    
+
     .hero-content p {
         font-size: 1.1rem;
     }
-    
+
     .hero-buttons {
         flex-direction: column;
         align-items: center;
     }
-    
+
+    .banner-container {
+        height: 200px;
+    }
+
     .stats-grid {
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     }
-    
+
     .categories-grid {
         grid-template-columns: 1fr;
     }
-    
+
     .featured-grid {
         grid-template-columns: 1fr;
     }

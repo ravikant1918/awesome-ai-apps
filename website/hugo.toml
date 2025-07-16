@@ -22,6 +22,10 @@ theme = 'PaperMod'
   showtoc = false
   tocopen = false
 
+[params.label]
+  icon = "/images/logo.png"
+  iconHeight = 30
+
 [params.homeInfoParams]
   Title = "Awesome AI Apps"
   Content = "A curated collection of practical AI agents and generative AI applications built with diverse tech stacks, demonstrating real-world implementations using OpenAI, Gemini, local models, and various AI frameworks."
@@ -38,16 +42,10 @@ theme = 'PaperMod'
     weight = 10
 
   [[menu.main]]
-    identifier = "categories"
-    name = "Categories"
-    url = "/categories/"
-    weight = 20
-
-  [[menu.main]]
     identifier = "github"
     name = "GitHub"
     url = "https://github.com/rohitg00/awesome-ai-apps"
-    weight = 30
+    weight = 20
 
 [outputs]
   home = ["HTML", "RSS", "JSON"]
