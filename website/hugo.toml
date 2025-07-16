@@ -1,0 +1,69 @@
+baseURL = 'https://rohitg00.github.io/awesome-ai-apps/'
+languageCode = 'en-us'
+title = 'Awesome AI Apps'
+theme = 'PaperMod'
+
+[params]
+  description = "A curated collection of practical AI agents and generative AI applications"
+  author = "rohitg00"
+  ShowReadingTime = true
+  ShowShareButtons = true
+  ShowPostNavLinks = true
+  ShowBreadCrumbs = true
+  ShowCodeCopyButtons = true
+  ShowWordCount = true
+  ShowRssButtonInSectionTermList = true
+  UseHugoToc = true
+  disableSpecial1stPost = false
+  disableScrollToTop = false
+  comments = false
+  hidemeta = false
+  hideSummary = false
+  showtoc = false
+  tocopen = false
+
+[params.profileMode]
+  enabled = true
+  title = "Awesome AI Apps"
+  subtitle = "A curated collection of practical AI agents and generative AI applications built with diverse tech stacks"
+  imageUrl = "https://awesome.re/badge.svg"
+  imageWidth = 120
+  imageHeight = 120
+
+[[params.profileMode.buttons]]
+  name = "Browse Apps"
+  url = "/apps"
+
+[[params.profileMode.buttons]]
+  name = "GitHub"
+  url = "https://github.com/rohitg00/awesome-ai-apps"
+
+[params.homeInfoParams]
+  Title = "Awesome AI Apps"
+  Content = "A curated collection of practical AI agents and generative AI applications built with diverse tech stacks, demonstrating real-world implementations using OpenAI, Gemini, local models, and various AI frameworks."
+
+[[params.socialIcons]]
+  name = "github"
+  url = "https://github.com/rohitg00/awesome-ai-apps"
+
+[menu]
+  [[menu.main]]
+    identifier = "apps"
+    name = "Apps"
+    url = "/apps/"
+    weight = 10
+
+  [[menu.main]]
+    identifier = "categories"
+    name = "Categories"
+    url = "/categories/"
+    weight = 20
+
+  [[menu.main]]
+    identifier = "github"
+    name = "GitHub"
+    url = "https://github.com/rohitg00/awesome-ai-apps"
+    weight = 30
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
