@@ -22,7 +22,13 @@
     <section class="stats">
         <div class="stats-grid">
             <div class="stat-card">
-                <h3>{{ len (where .Site.RegularPages "Section" "apps") }}</h3>
+                {{ $appPages := slice }}
+                {{ range .Site.RegularPages }}
+                    {{ if .Params.category }}
+                        {{ $appPages = $appPages | append . }}
+                    {{ end }}
+                {{ end }}
+                <h3>{{ len $appPages }}</h3>
                 <p>AI Applications</p>
             </div>
             <div class="stat-card">
@@ -75,8 +81,13 @@
     <section class="featured-apps">
         <h2>Featured Applications</h2>
         <div class="featured-grid">
-            {{ range first 6 (where .Site.RegularPages "Section" "apps") }}
-                {{ if ne .File.LogicalName "_index.md" }}
+            {{ $appPages := slice }}
+            {{ range .Site.RegularPages }}
+                {{ if .Params.category }}
+                    {{ $appPages = $appPages | append . }}
+                {{ end }}
+            {{ end }}
+            {{ range first 6 $appPages }}
                 <div class="featured-card">
                     <div class="featured-header">
                         <div class="featured-title">
@@ -97,7 +108,6 @@
                         <a href="{{ .Permalink }}" class="btn btn-small btn-secondary">Details</a>
                     </div>
                 </div>
-                {{ end }}
             {{ end }}
         </div>
         <div class="view-all">

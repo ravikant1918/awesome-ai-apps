@@ -246,15 +246,17 @@
 
 <script>
 function filterApps(category) {
-    const cards = document.querySelectorAll('.app-card');
-    const buttons = document.querySelectorAll('.filter-btn');
+    const appCards = document.querySelectorAll('.app-card');
+    const filterButtons = document.querySelectorAll('.filter-btn');
     
-    // Update active button
-    buttons.forEach(btn => btn.classList.remove('active'));
+    // Remove active class from all buttons
+    filterButtons.forEach(btn => btn.classList.remove('active'));
+    
+    // Add active class to clicked button
     event.target.classList.add('active');
     
-    // Filter cards
-    cards.forEach(card => {
+    // Filter apps
+    appCards.forEach(card => {
         if (category === 'all' || card.dataset.category === category) {
             card.style.display = 'flex';
         } else {
