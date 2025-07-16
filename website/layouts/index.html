@@ -3,10 +3,11 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
-            <h1>Awesome AI Apps</h1>
-            <p>A curated collection of practical AI agents and generative AI applications built with diverse tech stacks, demonstrating real-world implementations using OpenAI, Gemini, local models, and various AI frameworks.</p>
+            <img src="https://awesome.re/badge.svg" alt="Awesome" class="hero-badge">
+            <h1>{{ .Site.Title }}</h1>
+            <p>{{ .Site.Params.description }}</p>
             <div class="hero-buttons">
-                <a href="/apps/" class="btn btn-primary">Browse Apps</a>
+                <a href="{{ .Site.BaseURL }}apps/" class="btn btn-primary">Browse Apps</a>
                 <a href="https://github.com/rohitg00/awesome-ai-apps" class="btn btn-secondary" target="_blank">
                     <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                         <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
@@ -33,8 +34,8 @@
                 <p>Tech Stacks</p>
             </div>
             <div class="stat-card">
-                <h3>Open Source</h3>
-                <p>100% Free</p>
+                <h3>MIT</h3>
+                <p>License</p>
             </div>
         </div>
     </section>
@@ -53,16 +54,18 @@
                 {{ $categoryName := index $categoryNames $category }}
                 {{ $categoryDescription := index $categoryDescriptions $category }}
                 {{ $categoryIcon := index $categoryIcons $category }}
-                {{ $apps := where $.Site.RegularPages "Params.category" $category }}
+                {{ $categoryApps := where $.Site.RegularPages "Params.category" $category }}
                 
                 <div class="category-card">
-                    <div class="category-icon">{{ $categoryIcon }}</div>
-                    <h3>{{ $categoryName }}</h3>
-                    <p>{{ $categoryDescription }}</p>
-                    <div class="category-stats">
-                        <span class="app-count">{{ len $apps }} apps</span>
+                    <div class="category-header">
+                        <div class="category-icon">{{ $categoryIcon }}</div>
+                        <h3>{{ $categoryName }}</h3>
                     </div>
-                    <a href="/apps/?category={{ $category }}" class="category-link">Explore →</a>
+                    <p class="category-description">{{ $categoryDescription }}</p>
+                    <div class="category-stats">
+                        <span class="app-count">{{ len $categoryApps }} apps</span>
+                        <a href="{{ $.Site.BaseURL }}categories/{{ $category }}/" class="category-link">Explore →</a>
+                    </div>
                 </div>
             {{ end }}
         </div>
@@ -76,9 +79,6 @@
                 {{ if ne .File.LogicalName "_index.md" }}
                 <div class="featured-card">
                     <div class="featured-header">
-                        {{ if .Params.logoUrl }}
-                            <img src="{{ .Params.logoUrl }}" alt="{{ .Title }}" class="featured-logo">
-                        {{ end }}
                         <div class="featured-title">
                             <h4>{{ .Title }}</h4>
                             <span class="featured-category">{{ .Params.categoryName }}</span>
@@ -101,7 +101,7 @@
             {{ end }}
         </div>
         <div class="view-all">
-            <a href="/apps/" class="btn btn-primary">View All Applications</a>
+            <a href="{{ .Site.BaseURL }}apps/" class="btn btn-primary">View All Applications</a>
         </div>
     </section>
 </div>
@@ -116,211 +116,283 @@
 /* Hero Section */
 .hero {
     text-align: center;
-    padding: 60px 0;
-    background: var(--entry);
-    border-radius: 12px;
+    padding: 80px 0;
+    background: linear-gradient(135deg, var(--entry) 0%, var(--theme) 100%);
+    border-radius: 20px;
     margin-bottom: 60px;
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+    animation: shine 3s infinite;
+}
+
+@keyframes shine {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+.hero-badge {
+    width: 120px;
+    height: auto;
+    margin-bottom: 30px;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
 }
 
 .hero-content h1 {
-    font-size: 3rem;
+    font-size: 3.5rem;
     margin-bottom: 20px;
     color: var(--primary);
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
 }
 
 .hero-content p {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
+    margin-bottom: 40px;
     color: var(--secondary);
     max-width: 600px;
-    margin: 0 auto 30px;
+    margin-left: auto;
+    margin-right: auto;
     line-height: 1.6;
 }
 
 .hero-buttons {
     display: flex;
-    gap: 15px;
+    gap: 20px;
     justify-content: center;
     flex-wrap: wrap;
 }
 
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    border: 2px solid transparent;
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: var(--theme);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--primary);
+    border-color: var(--primary);
+}
+
+.btn-secondary:hover {
+    background: var(--primary);
+    color: var(--theme);
+}
+
 /* Stats Section */
 .stats {
-    margin-bottom: 60px;
+    margin-bottom: 80px;
 }
 
 .stats-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
 }
 
 .stat-card {
     background: var(--entry);
-    padding: 30px;
-    border-radius: 8px;
+    padding: 40px 20px;
+    border-radius: 15px;
     text-align: center;
     border: 1px solid var(--border);
+    transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
 }
 
 .stat-card h3 {
-    font-size: 2rem;
-    margin-bottom: 10px;
+    font-size: 2.5rem;
     color: var(--primary);
+    margin-bottom: 10px;
+    font-weight: 700;
 }
 
 .stat-card p {
     color: var(--secondary);
     font-size: 1.1rem;
+    margin: 0;
 }
 
 /* Categories Section */
 .categories {
-    margin-bottom: 60px;
+    margin-bottom: 80px;
 }
 
 .categories h2 {
     text-align: center;
     font-size: 2.5rem;
-    margin-bottom: 40px;
+    margin-bottom: 50px;
     color: var(--primary);
+    font-weight: 700;
 }
 
 .categories-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
+    gap: 30px;
 }
 
 .category-card {
     background: var(--entry);
     padding: 30px;
-    border-radius: 8px;
+    border-radius: 15px;
     border: 1px solid var(--border);
     transition: all 0.3s ease;
-    text-align: center;
+    hover: transform: translateY(-5px);
 }
 
 .category-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
 }
 
-.category-icon {
-    font-size: 3rem;
-    margin-bottom: 20px;
-}
-
-.category-card h3 {
-    font-size: 1.5rem;
-    margin-bottom: 15px;
-    color: var(--primary);
-}
-
-.category-card p {
-    color: var(--secondary);
-    margin-bottom: 20px;
-    line-height: 1.6;
-}
-
-.category-stats {
-    margin-bottom: 20px;
-}
-
-.app-count {
-    background: var(--primary);
-    color: var(--theme);
-    padding: 5px 15px;
-    border-radius: 20px;
-    font-size: 0.9rem;
-    font-weight: 500;
-}
-
-.category-link {
-    color: var(--primary);
-    text-decoration: none;
-    font-weight: 500;
-    transition: all 0.3s ease;
-}
-
-.category-link:hover {
-    opacity: 0.8;
-}
-
-/* Featured Apps Section */
-.featured-apps {
-    margin-bottom: 60px;
-}
-
-.featured-apps h2 {
-    text-align: center;
-    font-size: 2.5rem;
-    margin-bottom: 40px;
-    color: var(--primary);
-}
-
-.featured-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 20px;
-    margin-bottom: 40px;
-}
-
-.featured-card {
-    background: var(--entry);
-    padding: 20px;
-    border-radius: 8px;
-    border: 1px solid var(--border);
-    transition: all 0.3s ease;
-}
-
-.featured-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 3px 15px rgba(0,0,0,0.1);
-}
-
-.featured-header {
+.category-header {
     display: flex;
     align-items: center;
     margin-bottom: 15px;
 }
 
-.featured-logo {
-    width: 32px;
-    height: 32px;
-    margin-right: 12px;
-    border-radius: 4px;
+.category-icon {
+    font-size: 2rem;
+    margin-right: 15px;
+}
+
+.category-header h3 {
+    font-size: 1.5rem;
+    color: var(--primary);
+    margin: 0;
+}
+
+.category-description {
+    color: var(--secondary);
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.category-stats {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.app-count {
+    background: var(--primary);
+    color: var(--theme);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.category-link {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.category-link:hover {
+    color: var(--secondary);
+}
+
+/* Featured Apps Section */
+.featured-apps {
+    margin-bottom: 80px;
+}
+
+.featured-apps h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 50px;
+    color: var(--primary);
+    font-weight: 700;
+}
+
+.featured-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.featured-card {
+    background: var(--entry);
+    padding: 30px;
+    border-radius: 15px;
+    border: 1px solid var(--border);
+    transition: all 0.3s ease;
+}
+
+.featured-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
 }
 
 .featured-title h4 {
-    margin: 0;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     color: var(--primary);
+    margin: 0 0 10px 0;
 }
 
 .featured-category {
-    font-size: 0.9rem;
-    color: var(--secondary);
-    opacity: 0.8;
+    background: var(--primary);
+    color: var(--theme);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
 }
 
 .featured-description {
     color: var(--secondary);
-    margin-bottom: 15px;
-    line-height: 1.5;
+    line-height: 1.6;
+    margin: 20px 0;
 }
 
 .featured-tech {
     display: flex;
     flex-wrap: wrap;
-    gap: 5px;
-    margin-bottom: 15px;
+    gap: 8px;
+    margin-bottom: 20px;
 }
 
 .tech-tag {
     background: var(--code-bg);
     color: var(--primary);
-    padding: 2px 8px;
-    border-radius: 4px;
+    padding: 4px 8px;
+    border-radius: 6px;
     font-size: 0.8rem;
     border: 1px solid var(--border);
 }
@@ -330,48 +402,14 @@
     gap: 10px;
 }
 
+.btn-small {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+}
+
 .view-all {
     text-align: center;
-}
-
-/* Button Styles */
-.btn {
-    padding: 12px 24px;
-    border-radius: 6px;
-    text-decoration: none;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    cursor: pointer;
-    border: none;
-}
-
-.btn-primary {
-    background: var(--primary);
-    color: var(--theme);
-}
-
-.btn-primary:hover {
-    opacity: 0.9;
-    transform: translateY(-2px);
-}
-
-.btn-secondary {
-    background: transparent;
-    color: var(--primary);
-    border: 1px solid var(--border);
-}
-
-.btn-secondary:hover {
-    background: var(--primary);
-    color: var(--theme);
-}
-
-.btn-small {
-    padding: 6px 12px;
-    font-size: 0.9rem;
+    margin-top: 40px;
 }
 
 /* Responsive Design */
@@ -381,7 +419,7 @@
     }
     
     .hero-content p {
-        font-size: 1rem;
+        font-size: 1.1rem;
     }
     
     .hero-buttons {
@@ -390,7 +428,7 @@
     }
     
     .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     }
     
     .categories-grid {
