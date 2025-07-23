@@ -33,6 +33,9 @@ poetry install
 # Configure environment
 # Edit .env file and add your Hedra API key:
 # HEDRA_API_KEY=your_hedra_api_key_here
+# LIVEKIT_URL=wss://***********.livekit.cloud
+# LIVEKIT_API_KEY=
+# LIVEKIT_API_SECRET=********
 
 # Start the backend server
 poetry run fastapi dev app/main.py --port 8000
