@@ -146,9 +146,10 @@ def main():
         model_id = chat.models[selected_model]
         
         model_info = {
-            "Claude 3 Opus": "🎯 Most capable for complex reasoning",
-            "Claude 3 Sonnet": "⚖️ Balanced performance and speed",
-            "Claude 3 Haiku": "⚡ Fastest for simple tasks"
+            "Claude 4 Opus": "🎯 Most advanced model with highest capabilities",
+            "Claude 4 Sonnet": "⚖️ Excellent performance for most use cases",
+            "Claude 3.7 Sonnet": "⚡ Balanced performance and speed",
+            "Claude 3.5 Haiku": "💨 Fastest and most compact model"
         }
         
         st.info(model_info[selected_model])
