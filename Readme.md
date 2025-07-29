@@ -49,6 +49,7 @@ Applications combining text, images, audio, and video:
 - <img src="https://cdn.simpleicons.org/googlegemini" alt="Gemini logo" width="20" height="20"> **[Gemini Sketch-to-Video](./multimodal-apps/gemini-veo-sketch2video/)** - Turn sketches into animated videos with Gemini and Veo
 - <img src="https://cdn.simpleicons.org/googlegemini" alt="Gemini logo" width="20" height="20"> **[Multi-Modal Chatbot](./multimodal-apps/multi-modal-chatbot/)** - Chatbot that understands text, images, and video
 - 🎭 **[Hedra Live Avatars Demo](./multimodal-apps/hedra-live-avatars-demo/)** - Live avatar chat and video generation with Hedra API
+- 💕 **[Talk to AI Girlfriend](./multimodal-apps/talk-to-ai-girlfriend/)** - Interactive AI girlfriend with live avatar, voice, and real-time conversation
 
 # 🗓️ [Development Roadmap](./Roadmap.md)
 
