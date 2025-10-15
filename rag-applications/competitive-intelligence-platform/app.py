@@ -7,14 +7,20 @@ import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 from dotenv import load_dotenv
-from langchain.llms import OpenAI
-from langchain.embeddings import OpenAIEmbeddings
-from langchain.vectorstores import Chroma
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.chains import RetrievalQA
 import random
 import numpy as np
 
+# LangChain and LLM imports
+from langchain_community.llms import OpenAI
+from langchain_openai import OpenAIEmbeddings
+from langchain_community.embeddings import HuggingFaceEmbeddings
+from langchain_chroma import Chroma
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain.chains import RetrievalQA
+from langchain_google_genai import GoogleGenerativeAI, GoogleGenerativeAIEmbeddings
+from langchain_anthropic import Anthropic
+
+# Load environment variables
 load_dotenv()
 
 st.set_page_config(
@@ -23,36 +29,178 @@ st.set_page_config(
     layout="wide"
 )
 
+class ConfigurationManager:
+    """Manage API keys and model configurations"""
+    
+    def __init__(self):
+        self.config_file = "config_storage.json"
+        self.load_configurations()
+    
+    def load_configurations(self):
+        """Load saved configurations from file"""
+        try:
+            if os.path.exists(self.config_file):
+                with open(self.config_file, 'r') as f:
+                    configs = json.load(f)
+                    # Store in session state
+                    if 'saved_configs' not in st.session_state:
+                        st.session_state.saved_configs = configs
+            else:
+                if 'saved_configs' not in st.session_state:
+                    st.session_state.saved_configs = {}
+        except Exception as e:
+            st.error(f"Error loading configurations: {str(e)}")
+            if 'saved_configs' not in st.session_state:
+                st.session_state.saved_configs = {}
+    
+    def save_configuration(self, provider, model_name, api_key, config_name):
+        """Save a new configuration"""
+        try:
+            if 'saved_configs' not in st.session_state:
+                st.session_state.saved_configs = {}
+            
+            config_key = f"{provider}_{config_name}"
+            st.session_state.saved_configs[config_key] = {
+                'provider': provider,
+                'model_name': model_name,
+                'api_key': api_key,
+                'config_name': config_name,
+                'created_at': datetime.now().isoformat()
+            }
+            
+            # Save to file
+            with open(self.config_file, 'w') as f:
+                json.dump(st.session_state.saved_configs, f, indent=2)
+            
+            return True
+        except Exception as e:
+            st.error(f"Error saving configuration: {str(e)}")
+            return False
+    
+    def get_saved_configs(self):
+        """Get all saved configurations"""
+        return st.session_state.get('saved_configs', {})
+    
+    def get_config(self, config_key):
+        """Get a specific configuration"""
+        return st.session_state.saved_configs.get(config_key)
+    
+    def delete_config(self, config_key):
+        """Delete a saved configuration"""
+        try:
+            if config_key in st.session_state.saved_configs:
+                del st.session_state.saved_configs[config_key]
+                
+                # Save to file
+                with open(self.config_file, 'w') as f:
+                    json.dump(st.session_state.saved_configs, f, indent=2)
+                
+                return True
+        except Exception as e:
+            st.error(f"Error deleting configuration: {str(e)}")
+            return False
+    
+    def get_providers_with_saved_keys(self):
+        """Get list of providers that have saved API keys"""
+        providers = set()
+        for config in st.session_state.saved_configs.values():
+            providers.add(config['provider'])
+        return list(providers)
+
 class CompetitiveIntelligencePlatform:
     def __init__(self):
-        self.openai_api_key = os.getenv("OPENAI_API_KEY")
+        # LLM and embedding components
         self.llm = None
         self.embeddings = None
         self.vectorstore = None
         self.qa_chain = None
+        self.current_provider = None
+        self.current_model = None
+        
+        # Data storage
         self.competitor_analyses = []
         self.market_reports = []
         self.intelligence_alerts = []
         self.intelligence_stats = {}
         
-    def initialize_system(self, api_key):
+        # Vectorstore path
+        self.vectorstore_path = "./competitive_intelligence_db"
+    
+    def get_available_providers(self):
+        """Get list of available LLM providers"""
+        return {
+            'OpenAI': {
+                'models': ['gpt-3.5-turbo-instruct', 'gpt-4-turbo-preview', 'gpt-4'],
+                'requires_key': True,
+                'embedding_model': 'text-embedding-ada-002'
+            },
+            'Google Gemini': {
+                'models': ['gemini-pro', 'gemini-1.5-pro'],
+                'requires_key': True,
+                'embedding_model': 'models/embedding-001'
+            },
+            'Anthropic': {
+                'models': ['claude-3-opus-20240229', 'claude-3-sonnet-20240229', 'claude-3-haiku-20240307'],
+                'requires_key': True,
+                'embedding_model': 'huggingface'
+            }
+        }
+    
+    def initialize_system(self, provider, model_name, api_key, temperature=0.1):
+        """Initialize the system with selected provider and model"""
         try:
-            self.llm = OpenAI(
-                openai_api_key=api_key,
-                temperature=0.1,
-                model_name="gpt-3.5-turbo-instruct"
-            )
+            if not api_key:
+                st.error("Please provide an API key")
+                return False
             
-            self.embeddings = OpenAIEmbeddings(
-                openai_api_key=api_key,
-                model="text-embedding-ada-002"
-            )
+            # Initialize LLM based on provider
+            if provider == 'OpenAI':
+                self.llm = OpenAI(
+                    openai_api_key=api_key,
+                    temperature=temperature,
+                    model_name=model_name
+                )
+                self.embeddings = OpenAIEmbeddings(
+                    openai_api_key=api_key,
+                    model="text-embedding-ada-002"
+                )
             
+            elif provider == 'Google Gemini':
+                self.llm = GoogleGenerativeAI(
+                    google_api_key=api_key,
+                    model=model_name,
+                    temperature=temperature
+                )
+                self.embeddings = GoogleGenerativeAIEmbeddings(
+                    google_api_key=api_key,
+                    model="models/embedding-001"
+                )
+            
+            elif provider == 'Anthropic':
+                self.llm = Anthropic(
+                    anthropic_api_key=api_key,
+                    model_name=model_name,
+                    temperature=temperature
+                )
+                # For Anthropic, use HuggingFace embeddings or OpenAI if available
+                openai_key = st.session_state.get('openai_api_key_for_embeddings', '')
+                if openai_key:
+                    self.embeddings = OpenAIEmbeddings(
+                        openai_api_key=openai_key,
+                        model="text-embedding-ada-002"
+                    )
+                else:
+                    self.embeddings = HuggingFaceEmbeddings(
+                        model_name="sentence-transformers/all-mpnet-base-v2"
+                    )
+            
+            # Initialize vector store
             self.vectorstore = Chroma(
                 embedding_function=self.embeddings,
-                persist_directory="./competitive_intelligence_db"
+                persist_directory=self.vectorstore_path
             )
             
+            # Initialize QA chain
             self.qa_chain = RetrievalQA.from_chain_type(
                 llm=self.llm,
                 chain_type="stuff",
@@ -60,15 +208,29 @@ class CompetitiveIntelligencePlatform:
                 return_source_documents=True
             )
             
+            # Initialize sample data
             self.initialize_sample_competitive_data()
             
+            # Store current configuration
+            self.current_provider = provider
+            self.current_model = model_name
+            
             return True
+            
         except Exception as e:
             st.error(f"Error initializing system: {str(e)}")
             return False
     
     def initialize_sample_competitive_data(self):
         """Initialize sample competitive intelligence data for demonstration"""
+        # Check if data already exists
+        try:
+            existing_data = self.vectorstore.get()
+            if existing_data and len(existing_data.get('ids', [])) > 0:
+                return  # Data already exists
+        except:
+            pass
+        
         sample_data = [
             {
                 'competitor': 'TechCorp Inc.',
@@ -190,7 +352,9 @@ class CompetitiveIntelligencePlatform:
                 'analysis': competitor_analysis,
                 'threat_score': random.uniform(60, 95),
                 'competitive_strength': random.uniform(70, 90),
-                'market_impact': random.choice(['Low', 'Medium', 'High', 'Critical'])
+                'market_impact': random.choice(['Low', 'Medium', 'High', 'Critical']),
+                'provider': self.current_provider,
+                'model': self.current_model
             }
             
             self.competitor_analyses.append(analysis_entry)
@@ -257,7 +421,9 @@ class CompetitiveIntelligencePlatform:
                 'report_scope': report_scope,
                 'report': market_report,
                 'market_attractiveness': random.uniform(70, 95),
-                'competitive_intensity': random.uniform(60, 90)
+                'competitive_intensity': random.uniform(60, 90),
+                'provider': self.current_provider,
+                'model': self.current_model
             }
             
             self.market_reports.append(report_entry)
@@ -346,6 +512,10 @@ class CompetitiveIntelligencePlatform:
         
         export_data = {
             "generated_at": datetime.now().isoformat(),
+            "system_config": {
+                "provider": self.current_provider,
+                "model": self.current_model
+            },
             "competitor_analyses": self.competitor_analyses,
             "market_reports": self.market_reports,
             "intelligence_alerts": self.intelligence_alerts,
@@ -365,28 +535,20 @@ def main():
     st.title("🎯 Competitive Intelligence Platform")
     st.caption("AI-powered competitive analysis and market intelligence")
     
+    # Initialize session state
     if "competitive_intelligence" not in st.session_state:
         st.session_state.competitive_intelligence = CompetitiveIntelligencePlatform()
     
-    intelligence_system = st.session_state.competitive_intelligence
+    if "system_initialized" not in st.session_state:
+        st.session_state.system_initialized = False
     
-    with st.sidebar:
-        st.header("⚙️ System Configuration")
-        
-        api_key = st.text_input(
-            "OpenAI API Key",
-            value=intelligence_system.openai_api_key or "",
-            type="password"
-        )
-        
-        if api_key:
-            intelligence_system.openai_api_key = api_key
-            if not intelligence_system.llm:
-                if intelligence_system.initialize_system(api_key):
-                    st.success("✅ Competitive Intelligence Platform initialized!")
-        
-        st.divider()
-        
+    if "config_manager" not in st.session_state:
+        st.session_state.config_manager = ConfigurationManager()
+    
+    intelligence_system = st.session_state.competitive_intelligence
+    config_manager = st.session_state.config_manager
+    
+    with st.sidebar:        
         st.markdown("### 🎯 Intelligence Mode")
         
         mode = st.selectbox(
@@ -394,8 +556,154 @@ def main():
             ["Competitor Analysis", "Market Intelligence", "Intelligence Dashboard"],
             help="Select the type of competitive intelligence service"
         )
-        
         st.divider()
+        if st.session_state.system_initialized and intelligence_system.llm:
+            st.success(f"✅ Active LLM: {intelligence_system.current_provider} - {intelligence_system.current_model}")
+        
+        with st.expander("⚙️ System Configuration", expanded=False):
+            st.markdown("### LLM Configuration")
+            # Configuration mode selection
+            config_mode = st.radio(
+                "Configuration Mode",
+                ["Use Saved Configuration", "New Configuration"],
+                help="Choose to use saved configuration or create new one"
+            )
+            
+            if config_mode == "Use Saved Configuration":
+                saved_configs = config_manager.get_saved_configs()
+                
+                if saved_configs:
+                    config_options = [f"{v['config_name']} ({v['provider']} - {v['model_name']})" 
+                                    for k, v in saved_configs.items()]
+                    config_keys = list(saved_configs.keys())
+                    
+                    selected_config_display = st.selectbox(
+                        "Select Saved Configuration",
+                        options=config_options,
+                        help="Choose a saved configuration"
+                    )
+                    
+                    selected_config_key = config_keys[config_options.index(selected_config_display)]
+                    selected_config = config_manager.get_config(selected_config_key)
+                    
+                    if selected_config:
+                        st.info(f"**Provider:** {selected_config['provider']}\n\n**Model:** {selected_config['model_name']}")
+                        
+                        col1, col2 = st.columns(2)
+                        
+                        with col1:
+                            if st.button("🚀 Auto Initialize", type="primary"):
+                                with st.spinner(f"Initializing {selected_config['provider']} {selected_config['model_name']}..."):
+                                    if intelligence_system.initialize_system(
+                                        selected_config['provider'],
+                                        selected_config['model_name'],
+                                        selected_config['api_key'],
+                                        0.1
+                                    ):
+                                        st.session_state.system_initialized = True
+                                        st.success(f"✅ System initialized!")
+                                        st.rerun()
+                        
+                        with col2:
+                            if st.button("🗑️ Delete", type="secondary"):
+                                if config_manager.delete_config(selected_config_key):
+                                    st.success("Configuration deleted!")
+                                    st.rerun()
+                else:
+                    st.warning("No saved configurations found. Please create a new configuration.")
+            
+            else:  # New Configuration
+                st.markdown("### Add New Configuration")
+                
+                # Provider selection
+                providers = intelligence_system.get_available_providers()
+                selected_provider = st.selectbox(
+                    "Select AI Provider",
+                    options=list(providers.keys()),
+                    help="Choose your AI provider"
+                )
+                
+                # Model selection based on provider
+    
+                available_models = providers[selected_provider]['models']
+                # selected_model = st.selectbox(
+                #     "Select Model",
+                #     options=available_models,
+                #     help="Choose the specific model to use"
+                # )
+                # Modal name key input
+                selected_model = st.text_input(
+                    "Model Name Key",
+                    placeholder="e.g., gpt-4, gemini-pro, claude-3-opus-20240229",
+                    help="Enter the exact model name as per provider documentation"
+                )
+                
+                # API Key input
+                api_key = st.text_input(
+                    f"{selected_provider} API Key",
+                    type="password",
+                    help=f"Enter your {selected_provider} API key",
+                    key=f"new_api_key_{selected_provider}"
+                )
+                
+                # Configuration name
+                config_name = st.text_input(
+                    "Configuration Name",
+                    placeholder="e.g., Production, Development, Testing",
+                    help="Give this configuration a memorable name"
+                )
+                
+                # Additional embedding key for Anthropic
+                if selected_provider == 'Anthropic':
+                    with st.expander("⚙️ Embedding Configuration (Optional)"):
+                        st.info("Anthropic models require embeddings. You can provide an OpenAI key for better embeddings, or we'll use free HuggingFace embeddings.")
+                        openai_embedding_key = st.text_input(
+                            "OpenAI API Key (for embeddings)",
+                            type="password",
+                            help="Optional: Provide OpenAI key for better embeddings"
+                        )
+                        if openai_embedding_key:
+                            st.session_state.openai_api_key_for_embeddings = openai_embedding_key
+                
+                # Temperature slider
+                temperature = st.slider(
+                    "Temperature",
+                    min_value=0.0,
+                    max_value=1.0,
+                    value=0.1,
+                    step=0.1,
+                    help="Higher values make output more creative but less focused"
+                )
+                
+                col1, col2 = st.columns(2)
+                
+                with col1:
+                    # Save and Initialize button
+                    if st.button("💾 Save & Initialize", type="primary", disabled=not (api_key and config_name)):
+                        if config_manager.save_configuration(selected_provider, selected_model, api_key, config_name):
+                            with st.spinner(f"Initializing {selected_provider} {selected_model}..."):
+                                if intelligence_system.initialize_system(selected_provider, selected_model, api_key, temperature):
+                                    st.session_state.system_initialized = True
+                                    st.success(f"✅ Configuration saved and system initialized!")
+                                    st.rerun()
+                                else:
+                                    st.error("Failed to initialize system. Check your API key and configuration.")
+                        else:
+                            st.error("Failed to save configuration.")
+                
+                with col2:
+                    # Just Initialize button (without saving)
+                    if st.button("🚀 Initialize Only", disabled=not api_key):
+                        with st.spinner(f"Initializing {selected_provider} {selected_model}..."):
+                            if intelligence_system.initialize_system(selected_provider, selected_model, api_key, temperature):
+                                st.session_state.system_initialized = True
+                                st.success(f"✅ System initialized!")
+                                st.rerun()
+                            else:
+                                st.error("Failed to initialize system. Check your API key and configuration.")
+            
+            # Show current configuration if initialized
+
         
         if intelligence_system.competitor_analyses or intelligence_system.market_reports:
             st.markdown("### 📈 System Stats")
@@ -405,8 +713,6 @@ def main():
             if intelligence_system.competitor_analyses:
                 avg_threat = sum(a.get('threat_score', 0) for a in intelligence_system.competitor_analyses) / len(intelligence_system.competitor_analyses)
                 st.metric("Avg Threat Score", f"{avg_threat:.1f}%")
-        
-        st.divider()
         
         if intelligence_system.competitor_analyses or intelligence_system.market_reports:
             st.markdown("### 📥 Export Report")
@@ -420,38 +726,63 @@ def main():
                         file_name=filename,
                         mime="application/json"
                     )
-    
-    if not api_key:
-        st.warning("⚠️ Please enter your OpenAI API key in the sidebar.")
         
-        with st.expander("ℹ️ Setup Instructions"):
+        # Help section
+        with st.expander("ℹ️ Setup Help"):
             st.markdown("""
+            ### How to Get API Keys:
             
-            1. **Get API Key**: Sign up at [OpenAI](https://platform.openai.com/)
-            2. **Enter Key**: Add your API key in the sidebar
-            3. **Analyze Competitors**: Evaluate competitive landscape and threats
-            4. **Generate Intelligence**: Create comprehensive market intelligence reports
-            5. **Monitor Performance**: Track competitive intelligence metrics and insights
+            **OpenAI:**
+            1. Visit [platform.openai.com](https://platform.openai.com/)
+            2. Sign up or log in
+            3. Go to API Keys section
+            4. Create new secret key
             
-            - **Competitor Analysis**: Comprehensive competitor profiling and analysis
-            - **Market Intelligence**: Market trends and dynamics analysis
-            - **Strategic Insights**: Strategic positioning and opportunity identification
-            - **Threat Assessment**: Competitive threat evaluation and monitoring
-            - **Performance Benchmarking**: Competitive performance comparison and analysis
+            **Google Gemini:**
+            1. Visit [makersuite.google.com](https://makersuite.google.com/app/apikey)
+            2. Sign in with Google account
+            3. Create API key
             
-            - Strategic planning corporate strategic planning and competitive positioning
-            - Market research market intelligence and competitive landscape analysis
-            - Product management product competitive analysis and positioning
-            - Sales intelligence sales competitive intelligence and opportunity identification
-            - Business development market opportunity assessment and competitive analysis
+            **Anthropic:**
+            1. Visit [console.anthropic.com](https://console.anthropic.com/)
+            2. Sign up or log in
+            3. Go to API Keys
+            4. Generate new key
             """)
+    
+    # Main content area
+    if not st.session_state.system_initialized or not intelligence_system.llm:
+        st.warning("⚠️ Please configure and initialize the system using the sidebar.")
+        
+        st.markdown("""
+        ### 🚀 Getting Started
+        
+        #### Option 1: Use Saved Configuration
+        1. Select "Use Saved Configuration" in the sidebar
+        2. Choose a saved configuration from the dropdown
+        3. Click "Auto Initialize" to start
+        
+        #### Option 2: Create New Configuration
+        1. Select "New Configuration" in the sidebar
+        2. Choose your AI provider and model
+        3. Enter your API key
+        4. Give your configuration a name
+        5. Click "Save & Initialize" to save for future use
+        6. Or click "Initialize Only" for one-time use
+        
+        ### 📊 Features
+        
+        - **Competitor Analysis**: Comprehensive competitor profiling and threat assessment
+        - **Market Intelligence**: Market trends and competitive landscape analysis
+        - **Strategic Insights**: Strategic positioning and opportunity identification
+        - **Performance Benchmarking**: Competitive performance comparison
+        - **Intelligence Dashboard**: Visual analytics and KPI tracking
+        - **Configuration Management**: Save and reuse API keys and model settings
+        """)
         
         return
     
-    if not intelligence_system.llm:
-        st.error("❌ Failed to initialize Competitive Intelligence Platform. Please check your API key.")
-        return
-    
+    # Mode-specific content
     if mode == "Competitor Analysis":
         st.header("🎯 Competitor Analysis")
         
@@ -498,6 +829,8 @@ def main():
                     
                     with col3:
                         st.metric("Market Impact", result['market_impact'])
+                    
+                    st.info(f"Analysis generated using: {result['provider']} - {result['model']}")
                 else:
                     st.error(result)
     
@@ -536,6 +869,10 @@ def main():
                 
                 st.markdown("### 📊 Market Intelligence Report")
                 st.markdown(report)
+                
+                if intelligence_system.market_reports:
+                    latest_report = intelligence_system.market_reports[-1]
+                    st.info(f"Report generated using: {latest_report['provider']} - {latest_report['model']}")
     
     elif mode == "Intelligence Dashboard":
         st.header("📊 Intelligence Dashboard")
@@ -572,13 +909,51 @@ def main():
         with col4:
             st.metric("Strategic Value", "9.1/10", "0.5")
     
-    if intelligence_system.competitor_analyses:
+    # Intelligence History
+    if intelligence_system.competitor_analyses or intelligence_system.market_reports:
         st.header("📚 Intelligence History")
         
-        with st.expander("🎯 Recent Competitor Analyses"):
-            for analysis in intelligence_system.competitor_analyses[-5:]:
-                st.markdown(f"**Analysis {analysis['id']}:** {analysis['analysis_type']} - Threat: {analysis['threat_score']:.1f}% - Impact: {analysis['market_impact']}")
-                st.markdown(f"Data: {analysis['competitor_data'][:100]}...")
+        if intelligence_system.competitor_analyses:
+            with st.expander("🎯 Recent Competitor Analyses"):
+                for analysis in reversed(intelligence_system.competitor_analyses[-5:]):
+                    st.markdown(f"**Analysis {analysis['id']}** ({analysis['provider']} - {analysis['model']})")
+                    st.markdown(f"Type: {analysis['analysis_type']} | Threat: {analysis['threat_score']:.1f}% | Impact: {analysis['market_impact']}")
+                    st.markdown(f"Data: {analysis['competitor_data'][:100]}...")
+                    st.divider()
+        
+        if intelligence_system.market_reports:
+            with st.expander("📊 Recent Market Reports"):
+                for report in reversed(intelligence_system.market_reports[-5:]):
+                    st.markdown(f"**Report {report['id']}** ({report['provider']} - {report['model']})")
+                    st.markdown(f"Scope: {report['report_scope']} | Attractiveness: {report['market_attractiveness']:.1f}% | Intensity: {report['competitive_intensity']:.1f}%")
+                    st.markdown(f"Context: {report['market_context'][:100]}...")
+                    st.divider()
 
 if __name__ == "__main__":
     main()
+ 
+
+# Additional utility functions for enhanced functionality
+
+def create_env_template():
+    """Create a template .env file for users"""
+    template = """# OpenAI Configuration
+OPENAI_API_KEY=your_openai_api_key_here
+OPENAI_MODELS=gpt-3.5-turbo-instruct,gpt-4-turbo-preview,gpt-4
+
+# Google Gemini Configuration
+GOOGLE_API_KEY=your_google_api_key_here
+GOOGLE_MODELS=gemini-pro,gemini-1.5-pro
+
+# Anthropic Configuration
+ANTHROPIC_API_KEY=your_anthropic_api_key_here
+ANTHROPIC_MODELS=claude-3-opus-20240229,claude-3-sonnet-20240229,claude-3-haiku-20240307
+
+# Model Settings
+MODEL_TEMPERATURES=0.1,0.3,0.7
+
+# Vector Store Configuration
+VECTORSTORE_PATH=./competitive_intelligence_db
+"""
+    return template
+

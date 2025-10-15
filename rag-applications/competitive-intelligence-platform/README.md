@@ -57,3 +57,61 @@ An advanced RAG-powered competitive intelligence platform that processes market 
 - **Product Management**: Product competitive analysis and positioning
 - **Sales Intelligence**: Sales competitive intelligence and opportunity identification
 - **Business Development**: Market opportunity assessment and competitive analysis
+
+
+## 🎯 Example Questions You Can Ask
+
+### 🏢 Competitor Analysis
+
+-   Compare **Google** and **Microsoft** in terms of cloud strategy.\
+-   What are the **strengths and weaknesses** of **Byju's** vs
+    **Unacademy**?\
+-   Summarize **Apple's** product innovation strategy.\
+-   Compare **Flipkart** and **Amazon India**.
+
+### 📈 Market Trends
+
+-   What are the **latest trends** in **AI-powered education
+    platforms**?\
+-   Show insights about the **electric vehicle market (2024--2025)**.\
+-   Which companies are leading in **renewable energy**?
+
+### 🧠 Product Benchmarking
+
+-   Compare **UI/UX** of **Zoom** and **Microsoft Teams**.\
+-   Which company has a better **pricing strategy** between **Netflix**
+    and **Amazon Prime**?\
+-   What are the **unique features** of **ChatGPT** vs **Google
+    Gemini**?
+
+### 📊 Data Insights (for uploaded CSVs)
+
+-   Show **sentiment distribution** for customer reviews.\
+-   Which brand has the **most positive feedback**?\
+-   Plot a **trend chart of revenue growth** per year.
+
+### 📄 Report Generation
+
+-   Generate a **competitive intelligence report** for the EdTech
+    sector.\
+-   Create an **executive summary** comparing top 3 FinTech companies.\
+-   Write a **SWOT analysis** for **Tesla**.
+
+### 🧰 Business Strategy
+
+-   Suggest a **market entry strategy** for a new EdTech startup.\
+-   How can small firms compete with **Amazon**?\
+-   What are the **key success factors** for AI startups?
+
+------------------------------------------------------------------------
+
+## 💬 Example Chat
+
+**User:** Summarize the top 3 competitors of Tesla and their market
+shares.\
+**App:** Returns a chart and insights for Rivian, BYD, and Lucid Motors.
+
+**User:** What are the weaknesses of Unacademy in 2024?\
+**App:** Lists challenges like pricing, retention, and competition.
+
+------------------------------------------------------------------------
